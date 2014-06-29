@@ -12,4 +12,3 @@
 * Add methods to view
 * Create css layout for index.html (optional: bootstrap available)
 * Add button to sort cards by Title (A to Z) and by Price (low to high)
-
