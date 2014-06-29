@@ -74,8 +74,7 @@ app.views.Book = Backbone.View.extend({
 
 	tagName: 'li',
 
-	// template: _.template('<div>Title: <%= title %></div>'),
-	template: _.template('<div>Title: <%= title %></div>'),
+	template: _.template($("#template-book").html()),
 
 	render: function () {
 		this.$el.html(this.template(this.model.attributes));
@@ -90,7 +89,6 @@ app.views.ShelfView = Backbone.View.extend({
 	tagName: 'ul',
 
 	render: function () {
-		console.log("'this' keyword inside render function of ShelfView = ", this);
 		this.$el.empty();
 		this.collection.each(function (bookModel) {
 			var bookView = new app.views.Book({model: bookModel});
@@ -106,8 +104,8 @@ app.views.ShelfView = Backbone.View.extend({
 
 app.init = function () {
 	// QUESTION: Pass in bookData.books or bookDate, as unsure whether to pass array or object??
-	var topShelf = new app.collections.Books(bookData.books);
-	var topShelfView = new app.views.ShelfView({collection: topShelf});
+	var topShelfCollection = new app.collections.Books(bookData.books);
+	var topShelfView = new app.views.ShelfView({collection: topShelfCollection});
 
 	$('body').append(topShelfView.render().el);
 };

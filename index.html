@@ -1,8 +1,20 @@
 <html>
   <head>
     <title>Shelf of Books</title>
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
+
+		<script type="text/template" id="template-book">
+  		<div class="details <%= category %>">
+	  		<span>Category: <%= category %></span><br>
+	  		<span>Year: <%= year %></span><br>
+	  		<span>Price: <%= price %></span><br>
+	  		<span>Title: <%= title %></span><br>
+	  		<span>Author: <%= author %></span>
+	  	</div>
+  	</script>
+
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
