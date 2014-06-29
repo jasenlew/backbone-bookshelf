@@ -44,8 +44,10 @@ var bookData = {
 var app = {
 	views: {},
 	models: {},
-	collection: {}
+	collections: {}
 };
+
+
 
 // Create a Book model class with default data values
 app.models.Book = Backbone.Model.extend({ 
@@ -58,13 +60,61 @@ app.models.Book = Backbone.Model.extend({
 	}
 });
 
+
+
 // Create a Books collections class that hold the Person model class 
 app.collections.Books = Backbone.Collection.extend({
-	model: Book
+	model: app.models.Book
+});
+
+
+
+// Create a Book view class that will render one book
+app.views.Book = Backbone.View.extend({
+
+	tagName: 'li',
+
+	// template: _.template('<div>Title: <%= title %></div>'),
+	template: _.template('<div>Title: <%= title %></div>'),
+
+	render: function () {
+		this.$el.html(this.template(this.model.attributes));
+		return this;
+	}
+
 });
 
 // Create a ShelfView view class that will render the collection of books
-var ShelfView = Backbone.View.extend({
-	collection: Books
+app.views.ShelfView = Backbone.View.extend({
+
+	tagName: 'ul',
+
+	render: function () {
+		console.log("'this' keyword inside render function of ShelfView = ", this);
+		this.$el.empty();
+		this.collection.each(function (bookModel) {
+			var bookView = new app.views.Book({model: bookModel});
+			this.$el.append(bookView.render().el);
+		}, this);
+
+		return this;
+	
+	}
 });
 
+
+
+app.init = function () {
+	// QUESTION: Pass in bookData.books or bookDate, as unsure whether to pass array or object??
+	var topShelf = new app.collections.Books(bookData.books);
+	var topShelfView = new app.views.ShelfView({collection: topShelf});
+
+	$('body').append(topShelfView.render().el);
+};
+
+
+
+// Using jQuery, when document is ready (i.e. html page is loaded) run the app
+$(function () {
+	app.init();
+});
